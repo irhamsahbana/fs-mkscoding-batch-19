@@ -6,7 +6,7 @@ const routes = require('./routes');
 
 app.set("view engine", "ejs");
 
-app.use('/static', express.static('public'))
+app.use('/static', express.static('static'))
 app.use(express.urlencoded({ extended: false }));
 app.use('/', routes);
 
