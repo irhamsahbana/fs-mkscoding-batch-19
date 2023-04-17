@@ -2,6 +2,10 @@ const admin = require('firebase-admin');
 
 require('dotenv').config();
 
+if(process.env.FIRESTORE_PRIVATE_KEY) {
+  process.env.FIRESTORE_PRIVATE_KEY = process.env.FIRESTORE_PRIVATE_KEY.replace(/\\n/g, '\n');
+}
+
 const serviceAccount = {
   "type": process.env.FIRESTORE_TYPE,
   "project_id": process.env.FIRESTORE_PROJECT_ID,
