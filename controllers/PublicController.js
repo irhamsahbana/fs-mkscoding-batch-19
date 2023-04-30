@@ -35,6 +35,32 @@ class PublicController {
   static async adminDashboard(req, res) {
     res.render('pages_admin/dashboard.ejs');
   }
+
+  static async login(req, res) {
+    console.log(req.session);
+    res.render('pages/login.ejs');
+  }
+
+  static async loginAction(req, res) {
+    const { username, password } = req.body;
+
+    try {
+      const user = await models.login(username, password);
+
+      if (user) {
+        // set session
+        req.session.user = user;
+        req.session.isLoggedIn = true;
+
+        res.redirect('/admin/contact-list');
+      } else {
+        res.redirect('/login');
+      }
+    } catch (error) {
+      console.log(error);
+      res.send(error);
+    }
+  }
 }
 
 module.exports = PublicController;

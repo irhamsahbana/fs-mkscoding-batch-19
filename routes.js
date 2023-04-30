@@ -11,6 +11,8 @@ route.post('/admin/contact-list/:id/edit', AdminController.updateContact);
 
 // public
 route.get('/', PublicController.home);
+route.get('/login', PublicController.login);
+route.post('/login', PublicController.loginAction);
 route.get('/about', PublicController.about);
 route.get('/contact', PublicController.contact);
 route.post('/contact', PublicController.saveContact);

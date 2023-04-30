@@ -1,6 +1,7 @@
 const db = require('../connection.js');
 
 const contactListCollection = db.collection('contactList');
+const usersCollection = db.collection('users');
 
 async function addContact(data) {
   const docRef = await contactListCollection.add(data);
@@ -42,10 +43,24 @@ async function updateContact(id, data) {
   return docRef.id;
 }
 
+async function login(username, password) {
+  const snapshot = await usersCollection.where('username', '==', username).where('password', '==', password).get();
+
+  let user = null;
+
+  snapshot.forEach(doc => {
+    user = doc.data();
+    user.id = doc.id;
+  })
+
+  return user;
+}
+
 module.exports = {
   addContact,
   getContactList,
   deleteContact,
   getContactById,
-  updateContact
+  updateContact,
+  login,
 };

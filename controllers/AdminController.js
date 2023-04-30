@@ -2,6 +2,10 @@ const models = require('../models/index');
 
 class AdminController {
   static async contactList(req, res) {
+    if (!req.session.isLoggedIn) {
+      return res.redirect('/login');
+    }
+
     try {
       const contactList = await models.getContactList();
       const data = {
